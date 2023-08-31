@@ -1,15 +1,36 @@
-import org.openqa.selenium.WebDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class SeleniumTest {
 
     @Test
     public void openGooglePage() {
-        WebDriver driver = getDriver("ede");
+        WebDriver driver = getDriver("chrome");
         driver.get("https://www.google.pl/?hl=pl");
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    public void openSeleniumDemoPage() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        //options.setHeadless(true);
+        WebDriver driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.get("http://seleniumdemo.com/");
+        driver.findElement(By.xpath("//span[text()='Shop']")).click();
+        WebElement element = driver.findElement(By.xpath("//h2[text()='GIT basics']"));
+        Assert.assertTrue(element.isDisplayed());
+
+        //driver.quit();
     }
 
     public static WebDriver getDriver(String browser){
