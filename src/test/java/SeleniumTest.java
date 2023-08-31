@@ -27,9 +27,10 @@ public class SeleniumTest {
         driver.manage().window().maximize();
         driver.get("http://seleniumdemo.com/");
         driver.findElement(By.xpath("//span[text()='Shop']")).click();
-        WebElement element = driver.findElement(By.xpath("//h2[text()='GIT basics']"));
-        Assert.assertTrue(element.isDisplayed());
-
+        WebElement element1 = driver.findElement(By.xpath("//h2[text()='GIT basics']"));
+        Assert.assertTrue(element1.isDisplayed());
+        WebElement element2 = driver.findElement(By.xpath("//h2[text()='BDD Cucumber']"));
+        Assert.assertTrue(element2.isDisplayed());
         //driver.quit();
     }
 
