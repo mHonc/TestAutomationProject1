@@ -92,6 +92,13 @@ public class XpathTest {
         driver.findElement(orOp);
 
         //find element wyrzuca wyjatek, find elements nie
+
+        //priorytety selektorow:
+        // id (najlepiej unikalne, nie generowane automatycznie
+        // name
+        // bylinktext, bypartiallinktext
+        // jak nie ma zadnych z powyzszych, to css
+        // xpath jest najwolniejszy, ale mozna zbudowac najbardziej skomplikowane selektory
     }
 
 }
