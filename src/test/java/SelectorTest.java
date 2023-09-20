@@ -1,5 +1,6 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -44,5 +45,31 @@ public class SelectorTest {
         // wyszukiwanie po niepelnym linku
         WebElement partialLink = driver.findElement(By.partialLinkText("Visit W3Schools."));
         Assert.assertTrue(partialLink.isDisplayed());
+    }
+
+    @Test
+    public void SelectorMorelePageTest(){
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(false);
+        WebDriver driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.get("https://www.morele.net/");
+
+
+        driver.findElement(By.className("icon-basket"));
+
+        By css = By.cssSelector("#header > div > div > div > div.col.h-content > div > div.h-controls > div > div.h-control.h-basket-control > a");
+        driver.findElement(css);
+
+        By cssClass = By.cssSelector("[class='h-control-btn']");
+        driver.findElement(cssClass);
+
+        By cssClass2 = By.cssSelector("input[name='q']");
+        driver.findElement(cssClass2).sendKeys("nvidia");
+
+        By css3 = By.cssSelector("[class='btn btn-primary h-quick-search-submit']");
+        driver.findElement(css3).click();
+
     }
 }
