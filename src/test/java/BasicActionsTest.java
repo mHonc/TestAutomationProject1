@@ -1,12 +1,9 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.v85.page.Page;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
-import org.example.*;
 
 import java.util.List;
 
@@ -25,7 +22,11 @@ public class BasicActionsTest {
         WebElement username = driver.findElement(By.name("username"));
         username.clear();
         username.sendKeys("adminadmin");
-        username.sendKeys(Keys.TAB);
+        System.out.println(username.getAttribute("value"));
+        username.sendKeys(Keys.ENTER);
+        Alert fitstAlert = driver.switchTo().alert();
+        fitstAlert.accept();
+        driver.switchTo().alert().accept();
 
         driver.findElement(By.cssSelector("[type='checkbox']")).click();
         driver.findElement(By.cssSelector("[value='male']")).click();
@@ -43,5 +44,9 @@ public class BasicActionsTest {
         SelectCheck check = new SelectCheck();
         System.out.println(check.searchForSelect("Volvo", driver.findElement(By.cssSelector("select"))));
         System.out.println(check.searchForSelect("volvo", driver.findElement(By.cssSelector("select"))));
+
+        //wyszukiwanie ukrytego elementu dzieki textContent
+        System.out.println(driver.findElement(By.cssSelector("[class='topSecret']")).getAttribute("textContent"));
+
     }
 }
