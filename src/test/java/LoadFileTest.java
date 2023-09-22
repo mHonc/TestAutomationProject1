@@ -2,6 +2,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -29,5 +30,8 @@ public class LoadFileTest {
         driver.findElement(By.id("myFile")).sendKeys("C:\\Users\\M\\IdeaProjects\\TestAutomationProject1\\testowy.txt");
         File after = screenshot.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(after, new File("resources/afterUpload"  + timestamp + ".png"));
+
+        Actions actions = new Actions(driver);
+        actions.contextClick(driver.findElement(By.id("myFile"))).perform();
     }
 }
