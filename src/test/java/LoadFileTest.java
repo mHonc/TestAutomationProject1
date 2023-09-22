@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LoadFileTest {
 
@@ -13,10 +15,19 @@ public class LoadFileTest {
     public void load() throws IOException {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
+
+        // Pobieramy aktualną datę i czas
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        Date currentDate = new Date();
+        String timestamp = dateFormat.format(currentDate);
+
         driver.get("https://testeroprogramowania.github.io/selenium/fileupload.html");
-        driver.findElement(By.id("myFile")).sendKeys("C:\\Users\\M\\IdeaProjects\\TestAutomationProject1\\testowy.txt");
         TakesScreenshot screenshot = (TakesScreenshot) driver;
-        File file = screenshot.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(file, new File("resources/screenshot.png"));
+        File before = screenshot.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(before, new File("resources/beforeUpload" + timestamp + ".png"));
+
+        driver.findElement(By.id("myFile")).sendKeys("C:\\Users\\M\\IdeaProjects\\TestAutomationProject1\\testowy.txt");
+        File after = screenshot.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(after, new File("resources/afterUpload"  + timestamp + ".png"));
     }
 }
